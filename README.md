@@ -68,5 +68,22 @@ $ npm stop
        map['thcourses']='全部';
        map['PageNow']=0;
        let result = await Dubbo.UserTeacherService.selectByPrimaryKey(map);
+       
+   4、插入一个对象给java端的方法：建议参考官方文档： https://github.com/p412726700/node-zookeeper-dubbo
+   
+       4.1 实例opt定义：这里插入的数据类型为com.jzy.edu.exam.domain.User，一个bean类型参数是user
+       insertUser: user => [ { $class: "com.jzy.edu.exam.domain.User", $: user }],
+       
+       4.2 services中使用：先定义一个对象，再插入
+       const data1={id:2222,name:'teacherss',salary:2,job:'myjob'};
+       app.get('/foo/insertUser',(req,res)=>{
+         console.log("插入user对象");
+         Dubbo.Foo
+             .insertUser(data1)
+             .then(data=>res.send(data))
+             .catch(err=>res.send(err))
+       
+       })
+       
 ```
 
