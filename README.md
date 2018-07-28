@@ -53,7 +53,20 @@ $ npm stop
        //配置dubbo版本号
        dubboVer:'2.5.10',
        
-   2、根据java后端的接口文件生成nzd_services文件夹中的opt,注意interface是java文件的完整包名，方法和java文件的方法也需要一致，注意参数也是需要和java的参数一致。
-   3、在controller(使用services)引入dubbo，将dubbo中调用方法，后端方法以map为主。
+   2、 nzd_services文件夹中的opt文件中的version和group与java端一致就可以了
+       version:'v1.0.0',
+       group:'',
+       
+   3、注意方法名传参问题，大部分是传map给后台
+       //传空map
+       selectByPrimaryKey:(map)=>[{'$class': 'java.util.Map','$' :map}],
+       //传四个参数的map
+        //根据id获取数据
+       let map = {};
+       map['siid']='7910001';
+       map['ciid']='001';
+       map['thcourses']='全部';
+       map['PageNow']=0;
+       let result = await Dubbo.UserTeacherService.selectByPrimaryKey(map);
 ```
 
